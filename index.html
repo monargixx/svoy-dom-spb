@@ -168,6 +168,26 @@
   .contacts .r a:hover { color: var(--gas); border-color: var(--gas); }
   .contacts .foot { margin-top: 80px; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 10.5px; letter-spacing: .3em; text-transform: uppercase; color: var(--dark-muted); font-weight: 500; }
 
+  /* request form */
+  .req .box { margin-top: 64px; display: grid; grid-template-columns: 1fr 380px; gap: 80px; align-items: start; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; padding: 22px 0; border-top: 1px solid var(--line-dark); border-bottom: 1px solid var(--line); }
+  .chips .lbl { width: 100%; font-size: 15px; margin-bottom: 6px; }
+  .chip { font: inherit; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; font-weight: 500; padding: 11px 16px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; transition: all .2s; }
+  .chip:hover { border-color: var(--ink); color: var(--ink); }
+  .chip.on { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+  .req .field input[type=text], .req .field textarea { width: 100%; font: inherit; font-size: 16px; font-weight: 400; color: var(--ink); background: transparent; border: 0; border-bottom: 1px solid var(--ink); padding: 8px 0; outline: none; border-radius: 0; resize: vertical; }
+  .req .field { grid-template-columns: 1fr 240px; }
+  .req .field.wide { grid-template-columns: 1fr; gap: 6px; }
+  @media (max-width: 640px) { .req .field { grid-template-columns: 1fr; gap: 6px; } .req .field select, .req .field input { text-align: left; } }
+  .req .send { border-top: 1px solid var(--line-dark); padding-top: 26px; position: sticky; top: 100px; }
+  .req .send .t { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  .req .preview { margin-top: 18px; font-size: 13.5px; line-height: 1.7; color: var(--soft); white-space: pre-line; min-height: 120px; border-left: 1px solid var(--gas); padding-left: 16px; }
+  .req .send .btn { margin-top: 22px; width: 100%; justify-content: center; }
+  .req .send .btn + .btn { margin-top: 10px; }
+  .req .send p { margin-top: 18px; font-size: 12.5px; color: var(--muted); line-height: 1.65; }
+  .req .hint { color: var(--gas); font-size: 12.5px; margin-top: 10px; min-height: 18px; }
+  @media (max-width: 1024px) { .req .box { grid-template-columns: 1fr; gap: 40px; } .req .send { position: static; } }
+
   /* reveal */
   .rv { opacity: 0; transform: translateY(18px); transition: opacity .9s ease, transform .9s ease; }
   .rv.in { opacity: 1; transform: none; }
@@ -223,6 +243,7 @@
       <li><a href="#prices">Цены</a></li>
       <li><a href="#calc">Расчёт</a></li>
       <li><a href="#photos">Работы</a></li>
+      <li><a href="#request">Заявка</a></li>
     </ul>
     <a class="tg" href="https://t.me/daalllllxx" target="_blank" rel="noopener">Написать</a>
   </div>
@@ -248,7 +269,7 @@
     <h1>Участок с нуля<br>до дома <em>с газом</em></h1>
     <p class="lead">Спиливаем лес, ровняем участок, строим дом, тянем газ и сдаём котельную газовой службе. Одна бригада от первой сосны до первого запуска котла и один человек на связи.</p>
     <div class="cta">
-      <a class="btn solid" href="https://t.me/daalllllxx" target="_blank" rel="noopener">Разобрать мой участок <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+      <a class="btn solid" href="#request">Разобрать мой участок <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
       <a class="btn ghost" href="#calc">Прикинуть цену</a>
     </div>
     <div class="meta">
@@ -408,6 +429,44 @@
   </div>
 </section>
 
+<section class="req" id="request">
+  <div class="wrap">
+    <div class="kicker rv">Заявка</div>
+    <h2 class="rv">Расскажите про участок, а мы скажем, с чего начать</h2>
+    <p class="lead rv">Заполните что знаете и нажмите кнопку. Откроется мессенджер с готовым сообщением, останется только отправить. Сайт ничего не сохраняет.</p>
+    <div class="box">
+      <div class="rv" id="reqf">
+        <div class="chips" id="need">
+          <div class="lbl">Что нужно</div>
+          <button type="button" class="chip">Расчистка</button>
+          <button type="button" class="chip">Выравнивание</button>
+          <button type="button" class="chip">Фундамент</button>
+          <button type="button" class="chip">Дом</button>
+          <button type="button" class="chip">Забор</button>
+          <button type="button" class="chip on">Газ</button>
+          <button type="button" class="chip">Котельная</button>
+          <button type="button" class="chip">Пока не знаю</button>
+        </div>
+        <div class="field"><label>Где участок<small>район или посёлок</small></label><input type="text" id="r_place" placeholder="Всеволожский р-н"></div>
+        <div class="field"><label>Площадь участка<small>соток</small></label><input type="number" id="r_area" min="0" max="500" placeholder="10"></div>
+        <div class="field"><label>Что сейчас на участке</label><select id="r_now"><option value="">не выбрано</option><option>лес и деревья</option><option>пустой участок</option><option>дом уже стоит</option><option>дом строится</option></select></div>
+        <div class="field"><label>Газ на участке</label><select id="r_gas"><option value="">не выбрано</option><option>газ уже у границы участка</option><option>газ идёт по улице</option><option>газа рядом нет</option><option>не знаю</option></select></div>
+        <div class="field"><label>Когда хотите начать</label><select id="r_when"><option value="">не выбрано</option><option>как можно скорее</option><option>этой зимой</option><option>весной</option><option>просто прицениваюсь</option></select></div>
+        <div class="field"><label>Как к вам обращаться</label><input type="text" id="r_name" placeholder="Имя"></div>
+        <div class="field wide"><label>Комментарий<small>площадь дома, пожелания, вопросы</small></label><textarea id="r_note" rows="3"></textarea></div>
+      </div>
+      <aside class="send rv">
+        <div class="t">Ваше сообщение</div>
+        <div class="preview" id="r_preview"></div>
+        <a class="btn solid" id="r_tg" href="https://t.me/daalllllxx" target="_blank" rel="noopener">Отправить в Telegram</a>
+        <a class="btn ghost" id="r_wa" href="https://wa.me/79117925036" target="_blank" rel="noopener">Отправить в WhatsApp</a>
+        <div class="hint" id="r_hint"></div>
+        <p>Ответим в течение дня. Если удобнее голосом, напишите «позвоните мне», и мы перезвоним.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
 <section class="contacts" id="contacts">
   <div class="wrap">
     <div class="kicker rv">Напишите</div>
@@ -415,6 +474,7 @@
     <p class="lead rv">Если думаете о доме с газом к следующей зиме, начинать лучше сейчас. Зимой можно расчистить участок и подготовить всё к фундаменту, а весной сразу строить.</p>
     <div class="rows rv">
       <div class="r"><span>Telegram</span><a href="https://t.me/daalllllxx" target="_blank" rel="noopener">@daalllllxx</a></div>
+      <div class="r"><span>WhatsApp</span><a href="https://wa.me/79117925036" target="_blank" rel="noopener">+7 911 792-50-36</a></div>
       <div class="r"><span>Телефон</span><a href="tel:+79770024589">+7 977 002-45-89</a></div>
       <div class="r"><span>География</span><span>Петербург и Ленобласть</span></div>
       <div class="r"><span>Threads</span><a href="https://www.threads.com/@svoy.dom.spb" target="_blank" rel="noopener">@svoy.dom.spb</a></div>
@@ -457,6 +517,37 @@
     sw.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(); } });
   });
   calc();
+
+  // request form: builds a message, stores nothing
+  const need = document.getElementById('need');
+  need.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => { c.classList.toggle('on'); buildReq(); }));
+  const rv = id => document.getElementById(id).value.trim();
+  function reqText() {
+    const picked = [...need.querySelectorAll('.chip.on')].map(c => c.textContent.toLowerCase());
+    const L = ['Здравствуйте! Заявка с сайта.'];
+    if (rv('r_name')) L.push('Меня зовут ' + rv('r_name') + '.');
+    if (picked.length) L.push('Нужно: ' + picked.join(', ') + '.');
+    if (rv('r_place')) L.push('Участок: ' + rv('r_place') + (rv('r_area') ? ', ' + rv('r_area') + ' соток' : '') + '.');
+    else if (rv('r_area')) L.push('Участок ' + rv('r_area') + ' соток.');
+    if (rv('r_now')) L.push('Сейчас там ' + rv('r_now') + '.');
+    if (rv('r_gas')) L.push('Газ: ' + rv('r_gas') + '.');
+    if (rv('r_when')) L.push('Начать: ' + rv('r_when') + '.');
+    if (rv('r_note')) L.push(rv('r_note'));
+    return L.join('\n');
+  }
+  function buildReq() {
+    const t = reqText();
+    document.getElementById('r_preview').textContent = t;
+    document.getElementById('r_tg').href = 'https://t.me/daalllllxx?text=' + encodeURIComponent(t);
+    document.getElementById('r_wa').href = 'https://wa.me/79117925036?text=' + encodeURIComponent(t);
+  }
+  document.querySelectorAll('#reqf input, #reqf select, #reqf textarea').forEach(el => el.addEventListener('input', buildReq));
+  // Telegram may not prefill text for personal chats, so copy it too
+  document.getElementById('r_tg').addEventListener('click', () => {
+    const t = reqText();
+    try { navigator.clipboard.writeText(t).then(() => { document.getElementById('r_hint').textContent = 'Текст скопирован. Если в Telegram поле пустое, просто вставьте его.'; }); } catch (e) {}
+  });
+  buildReq();
 </script>
 </body>
 </html>
