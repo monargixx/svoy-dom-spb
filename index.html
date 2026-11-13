@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>От леса до котла</title>
+<meta name="description" content="Участок с нуля до дома с газом в Петербурге и Ленобласти. Расчистка, дом, газ, котельная и документы для газовой службы. Одна бригада и один человек на связи.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1c1b19;
+    --soft: #34312c;
+    --muted: #77716a;
+    --line: #dcd7ce;
+    --line-dark: #1c1b19;
+    --paper: #f6f4ef;
+    --paper-2: #efece5;
+    --gas: #e5ad0c;
+    --gas-soft: #fbefc6;
+    --dark: #1d1c1a;
+    --dark-line: #47433d;
+    --dark-muted: #a59e92;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Montserrat', system-ui, sans-serif; font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  ::selection { background: var(--gas-soft); }
+
+  .wrap { width: min(1180px, 100% - 32px); margin: 0 auto; }
+  section { padding: 110px 0; }
+  .kicker { font-size: 11px; letter-spacing: .36em; text-transform: uppercase; color: var(--muted); font-weight: 500; display: flex; align-items: center; gap: 14px; }
+  .kicker::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gas); flex: none; }
+  h1, h2, h3 { font-weight: 200; letter-spacing: -.02em; line-height: 1.05; }
+  h2 { font-size: clamp(34px, 4.6vw, 58px); margin-top: 22px; max-width: 760px; }
+  .lead { margin-top: 26px; font-size: 17px; line-height: 1.7; color: var(--soft); max-width: 560px; }
+  .num { font-weight: 200; color: var(--gas); line-height: 1; letter-spacing: -.03em; }
+
+  /* nav */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 20; backdrop-filter: blur(10px); background: rgba(246,244,239,.82); border-bottom: 1px solid var(--line); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; font-weight: 500; display: flex; align-items: center; gap: 12px; }
+  .brand svg { width: 22px; height: 22px; }
+  .nav ul { list-style: none; display: flex; gap: 34px; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  .nav ul a:hover { color: var(--ink); }
+  .nav .tg { font-size: 11px; letter-spacing: .26em; text-transform: uppercase; font-weight: 500; border: 1px solid var(--ink); padding: 10px 18px; transition: background .25s, color .25s; white-space: nowrap; }
+  .nav .tg:hover { background: var(--ink); color: var(--paper); }
+
+  /* hero */
+  .hero { padding: 180px 0 100px; position: relative; overflow: hidden; min-height: 100svh; display: flex; align-items: center; }
+  .hero h1 { font-size: clamp(46px, 7.6vw, 108px); line-height: .98; margin-top: 30px; position: relative; }
+  .hero h1 em { font-style: normal; color: var(--muted); font-weight: 200; }
+  .hero .lead { font-size: 18px; max-width: 520px; }
+  .hero .cta { margin-top: 44px; display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+  .btn { display: inline-flex; align-items: center; gap: 14px; font-size: 11.5px; letter-spacing: .28em; text-transform: uppercase; font-weight: 500; padding: 18px 28px; border: 1px solid var(--ink); transition: background .25s, color .25s; }
+  .btn.solid { background: var(--ink); color: var(--paper); }
+  .btn.solid:hover { background: var(--gas); color: var(--ink); border-color: var(--gas); }
+  .btn.ghost:hover { background: var(--ink); color: var(--paper); }
+  .btn svg { width: 16px; height: 16px; }
+  .hero .meta { margin-top: 90px; display: flex; gap: 0; border-top: 1px solid var(--line-dark); max-width: 980px; flex-wrap: wrap; }
+  .hero .meta div { padding: 20px 36px 0 0; margin-right: 36px; border-right: 1px solid var(--line); font-size: 10.5px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); font-weight: 500; line-height: 1.8; }
+  .hero .meta div:last-child { border-right: 0; }
+  .hero .meta b { display: block; font-weight: 200; font-size: 34px; letter-spacing: -.02em; color: var(--ink); text-transform: none; }
+  .hero .pipe { position: absolute; right: max(16px, calc((100% - 1180px) / 2)); top: 110px; width: 30vw; max-width: 460px; opacity: .95; pointer-events: none; }
+  .hero .pipe path, .hero .pipe circle, .hero .pipe line { fill: none; stroke: var(--gas); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+  .hero .pipe .ink { stroke: var(--line); }
+  .hero .pipe .flame { fill: var(--gas); stroke: none; }
+
+  /* steps */
+  .steps { border-top: 1px solid var(--line); background: var(--paper-2); }
+  .flow { margin-top: 70px; display: grid; grid-template-columns: repeat(6, 1fr); position: relative; }
+  .flow::before { content: ''; position: absolute; left: 0; right: 0; top: 7px; height: 1px; background: var(--gas); }
+  .st { position: relative; padding: 34px 28px 0 0; }
+  .st::before { content: ''; position: absolute; left: 0; top: 0; width: 15px; height: 15px; border-radius: 50%; background: var(--paper-2); border: 1.5px solid var(--gas); }
+  .st .n { font-size: 11px; letter-spacing: .3em; color: var(--muted); font-weight: 500; }
+  .st h3 { font-size: 20px; font-weight: 400; letter-spacing: -.01em; margin-top: 10px; }
+  .st p { margin-top: 10px; font-size: 14px; line-height: 1.6; color: var(--soft); }
+  .steps .note { margin-top: 70px; max-width: 680px; font-size: 15px; color: var(--soft); border-left: 1px solid var(--gas); padding-left: 22px; line-height: 1.7; }
+
+  /* services */
+  .svc { margin-top: 64px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line-dark); }
+  .svc .c { padding: 30px 28px 34px 0; margin-right: 28px; border-right: 1px solid var(--line); }
+  .svc .c:last-child { border-right: 0; margin-right: 0; }
+  .svc .num { font-size: 56px; }
+  .svc h3 { font-weight: 500; font-size: 11.5px; letter-spacing: .28em; text-transform: uppercase; margin-top: 20px; line-height: 1.6; }
+  .svc ul { list-style: none; margin-top: 16px; }
+  .svc li { font-size: 14.5px; line-height: 1.5; padding: 11px 0; border-bottom: 1px solid var(--line); color: var(--soft); }
+  .svc li:last-child { border-bottom: 0; }
+
+  /* prices */
+  .prices { background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .pgrid { margin-top: 64px; display: grid; grid-template-columns: 1fr 330px; gap: 80px; align-items: start; }
+  .pgroup + .pgroup { margin-top: 54px; }
+  .pgroup .t { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; font-weight: 500; color: var(--muted); display: flex; align-items: center; gap: 14px; }
+  .pgroup .t::after { content: ''; flex: 1; height: 1px; background: var(--line-dark); }
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  td { padding: 17px 0; border-bottom: 1px solid var(--line); font-size: 16px; vertical-align: top; }
+  td small { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+  td.p { text-align: right; white-space: nowrap; font-weight: 400; padding-left: 24px; }
+  td.p span { color: var(--muted); font-weight: 300; font-size: 13px; margin-right: 6px; }
+  .side { position: sticky; top: 100px; border-left: 1px solid var(--line-dark); padding-left: 28px; }
+  .side p { font-size: 14.5px; line-height: 1.7; color: var(--soft); }
+  .side p + p { margin-top: 16px; }
+  .side .stamp { margin-top: 28px; font-size: 10.5px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+
+  /* calculator */
+  .calc .box { margin-top: 64px; display: grid; grid-template-columns: 1fr 380px; gap: 80px; align-items: start; }
+  .field { display: grid; grid-template-columns: 1fr 120px; gap: 24px; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .field:first-child { border-top: 1px solid var(--line-dark); }
+  .field label { font-size: 15px; }
+  .field label small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+  .field input[type=number], .field select { width: 100%; font: inherit; font-size: 16px; font-weight: 400; color: var(--ink); background: transparent; border: 0; border-bottom: 1px solid var(--ink); padding: 8px 0; text-align: right; outline: none; border-radius: 0; -moz-appearance: textfield; }
+  .field input::-webkit-outer-spin-button, .field input::-webkit-inner-spin-button { -webkit-appearance: none; }
+  .field select { text-align: left; cursor: pointer; }
+  .field.chk { grid-template-columns: 1fr auto; }
+  .sw { position: relative; width: 44px; height: 24px; border: 1px solid var(--ink); border-radius: 24px; cursor: pointer; transition: background .25s; }
+  .sw::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--ink); transition: transform .25s, background .25s; }
+  .sw.on { background: var(--ink); }
+  .sw.on::after { transform: translateX(20px); background: var(--gas); }
+  .total { border-top: 1px solid var(--line-dark); padding-top: 26px; position: sticky; top: 100px; }
+  .total .t { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  .total .sum { font-weight: 200; font-size: clamp(44px, 5vw, 64px); letter-spacing: -.03em; line-height: 1; margin-top: 18px; }
+  .total .sum span { font-size: 22px; color: var(--muted); margin-left: 8px; letter-spacing: 0; }
+  .total ul { list-style: none; margin-top: 26px; }
+  .total li { display: flex; justify-content: space-between; gap: 20px; font-size: 13.5px; padding: 9px 0; border-bottom: 1px solid var(--line); color: var(--soft); }
+  .total li b { font-weight: 400; white-space: nowrap; }
+  .total p { margin-top: 22px; font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .total .btn { margin-top: 26px; width: 100%; justify-content: center; }
+
+  /* why */
+  .why .facts { margin-top: 64px; border-top: 1px solid var(--line-dark); }
+  .fact { display: grid; grid-template-columns: 220px 1fr; gap: 40px; padding: 30px 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .fact b { font-weight: 200; font-size: 50px; letter-spacing: -.02em; line-height: 1; }
+  .fact b i { font-style: normal; font-size: 18px; color: var(--muted); margin-left: 6px; letter-spacing: 0; }
+  .fact h3 { font-size: 20px; font-weight: 400; letter-spacing: -.01em; }
+  .fact p { margin-top: 8px; font-size: 15px; color: var(--soft); max-width: 620px; }
+
+  /* photos */
+  .photos { padding-top: 0; }
+  .mosaic { margin-top: 64px; display: grid; grid-template-columns: 1.15fr 1fr 1fr 1fr; grid-template-rows: 300px 300px; gap: 12px; }
+  .mosaic figure { position: relative; overflow: hidden; background: var(--paper-2); }
+  .mosaic figure img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s ease; }
+  .mosaic figure:hover img { transform: scale(1.04); }
+  .mosaic .tall { grid-row: span 2; }
+  .mosaic figcaption { position: absolute; left: 0; bottom: 0; padding: 8px 14px; background: var(--paper); font-size: 9.5px; letter-spacing: .26em; text-transform: uppercase; }
+
+  /* checks */
+  .checks { background: var(--paper-2); border-top: 1px solid var(--line); }
+  .cl { margin-top: 64px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--line-dark); }
+  .cl .c { padding: 30px 32px 36px 0; margin-right: 32px; border-right: 1px solid var(--line); }
+  .cl .c:last-child { border-right: 0; margin-right: 0; }
+  .cl .num { font-size: 44px; }
+  .cl h3 { font-size: 19px; font-weight: 400; margin-top: 18px; letter-spacing: -.01em; }
+  .cl p { margin-top: 10px; font-size: 14.5px; color: var(--soft); }
+
+  /* contacts */
+  .contacts { background: var(--dark); color: #f3efe7; padding: 120px 0; }
+  .contacts .kicker { color: var(--dark-muted); }
+  .contacts h2 { color: #fff; }
+  .contacts .lead { color: #cfc8bc; }
+  .contacts .rows { margin-top: 56px; border-top: 1px solid var(--dark-line); max-width: 640px; }
+  .contacts .r { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--dark-line); font-size: 19px; }
+  .contacts .r span:first-child { font-size: 10.5px; letter-spacing: .3em; text-transform: uppercase; color: var(--dark-muted); font-weight: 500; }
+  .contacts .r a { border-bottom: 1px solid transparent; transition: border-color .25s, color .25s; }
+  .contacts .r a:hover { color: var(--gas); border-color: var(--gas); }
+  .contacts .foot { margin-top: 80px; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 10.5px; letter-spacing: .3em; text-transform: uppercase; color: var(--dark-muted); font-weight: 500; }
+
+  /* reveal */
+  .rv { opacity: 0; transform: translateY(18px); transition: opacity .9s ease, transform .9s ease; }
+  .rv.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } }
+
+  @media (max-width: 1024px) {
+    .flow { grid-template-columns: repeat(3, 1fr); row-gap: 40px; }
+    .flow::before { display: none; }
+    .st::after { content: ''; position: absolute; left: 0; right: 28px; top: 7px; height: 1px; background: var(--gas); z-index: -1; }
+    .svc { grid-template-columns: 1fr 1fr; }
+    .svc .c:nth-child(2) { border-right: 0; margin-right: 0; }
+    .svc .c:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .pgrid, .calc .box { grid-template-columns: 1fr; gap: 48px; }
+    .side, .total { position: static; }
+    .side { border-left: 0; padding-left: 0; border-top: 1px solid var(--line-dark); padding-top: 24px; }
+    .mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 260px 260px 260px; }
+    .mosaic .tall { grid-row: span 1; }
+    .cl { grid-template-columns: 1fr; }
+    .cl .c { border-right: 0; margin-right: 0; border-bottom: 1px solid var(--line); }
+    .cl .c:last-child { border-bottom: 0; }
+    .hero .pipe { display: none; }
+  }
+  @media (max-width: 640px) {
+    section { padding: 80px 0; }
+    .nav ul { display: none; }
+    .hero { padding: 130px 0 70px; min-height: auto; }
+    .hero .meta div { border-right: 0; margin-right: 0; padding-right: 0; width: 100%; padding-top: 16px; }
+    .hero .meta b { font-size: 28px; }
+    .flow { grid-template-columns: 1fr; row-gap: 30px; }
+    .svc { grid-template-columns: 1fr; }
+    .svc .c { border-right: 0; margin-right: 0; padding-right: 0; }
+    .svc .c + .c { border-top: 1px solid var(--line); }
+    .fact { grid-template-columns: 1fr; gap: 10px; }
+    .fact b { font-size: 40px; }
+    .mosaic { grid-template-columns: 1fr; grid-template-rows: repeat(6, 240px); }
+    td { font-size: 15px; }
+    .field { grid-template-columns: 1fr 90px; }
+    .contacts .r { font-size: 16px; flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="От леса до котла">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 20h18"/><path d="M6 20V11l6-5 6 5v9"/><path d="M12 20v-4c0-1.3.8-2.4 2-2.8-.1 1.5.6 2.3 1.4 2.9.5.4.6 1.1.6 1.9v2" stroke="#e5ad0c"/></svg>
+      От леса до котла
+    </a>
+    <ul>
+      <li><a href="#steps">Этапы</a></li>
+      <li><a href="#services">Что делаем</a></li>
+      <li><a href="#prices">Цены</a></li>
+      <li><a href="#calc">Расчёт</a></li>
+      <li><a href="#photos">Работы</a></li>
+    </ul>
+    <a class="tg" href="https://t.me/daalllllxx" target="_blank" rel="noopener">Написать</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <svg class="pipe" viewBox="0 0 640 520" aria-hidden="true">
+    <!-- tree -->
+    <path class="ink" d="M70 300 L70 240 M70 240 L40 200 L58 200 L36 160 L54 160 L34 120 L70 70 L106 120 L86 160 L104 160 L82 200 L100 200 L70 240"/>
+    <!-- ground to house -->
+    <path d="M20 300 H250"/>
+    <path class="ink" d="M250 300 V210 L320 150 L390 210 V300 Z"/>
+    <path class="ink" d="M300 300 V260 H340 V300"/>
+    <!-- gas pipe: ground -> house -> boiler -> flame -->
+    <path d="M250 300 H600 M560 300 V200 H470 V250 H420"/>
+    <circle cx="420" cy="250" r="4"/>
+    <path class="ink" d="M560 160 h40 v60 h-40 z"/>
+    <path class="flame" d="M580 206c-6-4-9-9-7-15 1 4 3 6 5 6 1-4 0-8-2-12 5 3 8 7 8 12 0 4-2 7-4 9z"/>
+    <line x1="20" y1="300" x2="640" y2="300" class="ink"/>
+  </svg>
+  <div class="wrap">
+    <div class="kicker">Петербург и Ленобласть · с 2012 года</div>
+    <h1>Участок с нуля<br>до дома <em>с газом</em></h1>
+    <p class="lead">Спиливаем лес, ровняем участок, строим дом, тянем газ и сдаём котельную газовой службе. Одна бригада от первой сосны до первого запуска котла и один человек на связи.</p>
+    <div class="cta">
+      <a class="btn solid" href="https://t.me/daalllllxx" target="_blank" rel="noopener">Разобрать мой участок <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+      <a class="btn ghost" href="#calc">Прикинуть цену</a>
+    </div>
+    <div class="meta">
+      <div><b>6</b>этапов в одних руках</div>
+      <div><b>2 года</b>гарантии на котёл и вентиляцию</div>
+      <div><b>1</b>человек на связи</div>
+    </div>
+  </div>
+</section>
+
+<section class="steps" id="steps">
+  <div class="wrap">
+    <div class="kicker rv">Как это обычно бывает</div>
+    <h2 class="rv">У вас лес и мечта о доме. Дальше всё идёт по порядку</h2>
+    <div class="flow">
+      <div class="st rv"><div class="n">01</div><h3>Спил и корчёвка</h3><p>Убираем деревья, пни и мелколесье, вывозим порубочные остатки. Сразу думаем, где встанет дом.</p></div>
+      <div class="st rv"><div class="n">02</div><h3>Выравнивание</h3><p>Планировка участка, отсыпка, дренаж там, где без него никак. После этого участок всегда «ой, а он большой».</p></div>
+      <div class="st rv"><div class="n">03</div><h3>Фундамент и дом</h3><p>Плита, лента или сваи под ваш грунт. Коробка, крыша, окна. Каркас или газобетон.</p></div>
+      <div class="st rv"><div class="n">04</div><h3>Забор и дорожки</h3><p>Профнастил или евроштакетник, ворота, калитка, подъезд к дому и дорожки.</p></div>
+      <div class="st rv"><div class="n">05</div><h3>Газ и котельная</h3><p>Подводка газа с проектом и договором, котёл, дымоход, вентиляция, разводка отопления и тёплые полы.</p></div>
+      <div class="st rv"><div class="n">06</div><h3>Акт и пуск</h3><p>Котельную принимает газовая служба с первого раза, потому что мы делали её по нормам, а не «как получилось».</p></div>
+    </div>
+    <p class="note rv">Заявку на газ лучше подавать ещё до того, как поставили дом. Подключение идёт не неделю, а может растянуться на месяцы. Пока строитесь, газ как раз успевает дойти до участка.</p>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="kicker rv">Что делаем</div>
+    <h2 class="rv">Можно всё сразу, можно любой этап отдельно</h2>
+    <div class="svc">
+      <div class="c rv"><div class="num">01</div><h3>Участок</h3>
+        <ul><li>Спил деревьев, в том числе по частям и с завешиванием</li><li>Корчёвка и фрезерование пней</li><li>Расчистка мелколесья и кустарника</li><li>Планировка, отсыпка, вывоз грунта</li></ul></div>
+      <div class="c rv"><div class="num">02</div><h3>Дом</h3>
+        <ul><li>Фундамент под грунт участка</li><li>Каркасный дом или газобетон</li><li>Крыша, окна, тёплый контур</li><li>Отделка по договорённости</li></ul></div>
+      <div class="c rv"><div class="num">03</div><h3>Газ</h3>
+        <ul><li>Подводка газа к дому официально, с проектом и документами</li><li>Разводка по дому к котлу, плите и колонке</li><li>Установка котла с дымоходом и негорючим листом</li><li>Обвязка, пусконаладка с актом</li></ul></div>
+      <div class="c rv"><div class="num">04</div><h3>Котельная и инженерка</h3>
+        <ul><li>Вентиляция котельной и кухни по требованиям газовой службы</li><li>Акт на вентиляцию и дымоходы</li><li>Разводка отопления, тёплые полы</li><li>Вся сантехника</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="prices" id="prices">
+  <div class="wrap">
+    <div class="kicker rv">Честно про деньги</div>
+    <h2 class="rv">Ориентиры по ценам, чтобы вы понимали порядок</h2>
+    <div class="pgrid">
+      <div class="rv">
+        <div class="pgroup"><div class="t">Участок</div>
+          <table>
+            <tr><td>Расчистка участка от леса под ключ<small>спил, корчёвка, вывоз</small></td><td class="p"><span>от</span>6 500 ₽ / сотка</td></tr>
+            <tr><td>Спил одного дерева</td><td class="p"><span>от</span>2 000 ₽</td></tr>
+            <tr><td>Корчёвка пня</td><td class="p"><span>от</span>1 000 ₽</td></tr>
+            <tr><td>Выравнивание и планировка<small>отсыпка считается по объёму грунта</small></td><td class="p"><span>от</span>5 500 ₽ / сотка</td></tr>
+          </table></div>
+        <div class="pgroup"><div class="t">Фундамент и дом</div>
+          <table>
+            <tr><td>Монолитная плита<small>с материалами</small></td><td class="p"><span>от</span>6 000 ₽ / м²</td></tr>
+            <tr><td>Утеплённая шведская плита 6×6</td><td class="p"><span>от</span>231 000 ₽</td></tr>
+            <tr><td>Ленточный фундамент 6×8</td><td class="p"><span>от</span>169 000 ₽</td></tr>
+            <tr><td>Каркасный дом, тёплый контур</td><td class="p"><span>от</span>45 000 ₽ / м²</td></tr>
+            <tr><td>Дом из газобетона, тёплый контур</td><td class="p"><span>от</span>47 500 ₽ / м²</td></tr>
+          </table></div>
+        <div class="pgroup"><div class="t">Забор</div>
+          <table>
+            <tr><td>Забор из профнастила под ключ</td><td class="p"><span>от</span>2 400 ₽ / м</td></tr>
+            <tr><td>Забор из евроштакетника под ключ</td><td class="p"><span>от</span>2 900 ₽ / м</td></tr>
+          </table></div>
+        <div class="pgroup"><div class="t">Газ и котельная</div>
+          <table>
+            <tr><td>Подводка газа к дому<small>официально, с договором, проектом и документами, точно после замера</small></td><td class="p"><span>от</span>214 000 ₽ + 2 700 ₽ / м</td></tr>
+            <tr><td>Котельная под ключ<small>установка котла, вентиляция, пусконаладка, акт</small></td><td class="p"><span>от</span>79 500 ₽</td></tr>
+            <tr><td>Вентиляция котельной<small>приток и вытяжка, материалы и работа</small></td><td class="p"><span>от</span>43 000 ₽</td></tr>
+            <tr><td>Вентиляция кухни, вытяжка</td><td class="p"><span>от</span>43 000 ₽</td></tr>
+            <tr><td>Установка котла с дымоходом</td><td class="p"><span>от</span>18 500 ₽</td></tr>
+            <tr><td>Пусконаладка с актом</td><td class="p"><span>от</span>12 000 ₽</td></tr>
+            <tr><td>Акт для газовой службы на вентиляцию</td><td class="p">6 000 ₽</td></tr>
+          </table></div>
+      </div>
+      <aside class="side rv">
+        <p>Цены «от» по рынку Петербурга и Ленобласти на ноябрь 2026 года. Точная смета после выезда на участок, потому что у каждой сосны есть корни, а у каждого участка свой грунт.</p>
+        <p>Котёл и оборудование считаются отдельно. Если вам называют сильно дешевле, спросите, что именно входит. Часто «дёшево» это только повесить котёл, а вентиляцию и акт делайте сами.</p>
+        <p>Когда заказываете весь цикл, от расчистки до котла, даём скидку на комплекс. Размер зависит от объёма, обсуждаем на месте.</p>
+        <div class="stamp">Ноябрь 2026 · не оферта</div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="calc" id="calc">
+  <div class="wrap">
+    <div class="kicker rv">Прикинуть</div>
+    <h2 class="rv">Очень примерный расчёт вашего участка</h2>
+    <p class="lead rv">Подвигайте цифры, чтобы понять порядок суммы. Это не смета, а ориентир по нижней границе.</p>
+    <div class="box">
+      <div class="rv" id="fields">
+        <div class="field"><label>Расчистить от леса<small>соток под спил и корчёвку</small></label><input type="number" min="0" max="50" step="1" value="6" data-k="clear"></div>
+        <div class="field"><label>Выровнять<small>соток планировки без отсыпки</small></label><input type="number" min="0" max="50" step="1" value="8" data-k="level"></div>
+        <div class="field"><label>Дом<small>площадь, м²</small></label><input type="number" min="0" max="600" step="5" value="100" data-k="house"></div>
+        <div class="field"><label>Материал дома</label><select data-k="mat"><option value="45000">Каркас</option><option value="47500">Газобетон</option></select></div>
+        <div class="field"><label>Фундамент плита<small>пятно застройки, м²</small></label><input type="number" min="0" max="400" step="5" value="60" data-k="slab"></div>
+        <div class="field"><label>Забор из профнастила<small>метров</small></label><input type="number" min="0" max="500" step="5" value="100" data-k="fence"></div>
+        <div class="field chk"><label>Подводка газа<small>официально, с проектом</small></label><div class="sw on" data-k="gas" role="switch" aria-checked="true" tabindex="0"></div></div>
+        <div class="field"><label>Труба от точки врезки<small>метров</small></label><input type="number" min="0" max="300" step="5" value="20" data-k="pipe"></div>
+        <div class="field chk"><label>Котельная под ключ<small>котёл, вентиляция, пуск, акт</small></label><div class="sw on" data-k="boiler" role="switch" aria-checked="true" tabindex="0"></div></div>
+      </div>
+      <aside class="total rv">
+        <div class="t">Итого, ориентир</div>
+        <div class="sum"><span style="margin:0 6px 0 0">от</span><span id="sum" style="font-size:inherit;color:inherit;margin:0;letter-spacing:inherit">0</span><span>₽</span></div>
+        <ul id="lines"></ul>
+        <p>Без котла и оборудования, без отделки и без отсыпки. Точная цифра появится после выезда на участок.</p>
+        <a class="btn solid" id="send" href="https://t.me/daalllllxx" target="_blank" rel="noopener">Отправить расчёт в Telegram</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="kicker rv">Почему одна бригада</div>
+    <h2 class="rv">Когда участок делают пять команд, у каждой есть железный аргумент «это не мы, это до нас»</h2>
+    <div class="facts">
+      <div class="fact rv"><b>2012</b><div><h3>Работаем с 2012 года</h3><p>Инженерная бригада, которая начинала с газа и котельных, а теперь ведёт участок целиком. Газ по-прежнему наша главная специальность.</p></div></div>
+      <div class="fact rv"><b>1<i>человек</i></b><div><h3>Один человек на связи</h3><p>Не нужно искать отдельно лесорубов, строителей, газовиков и сантехников. Вы пишете одному человеку, он держит в голове весь ваш участок.</p></div></div>
+      <div class="fact rv"><b>2<i>года</i></b><div><h3>Гарантия на котёл и вентиляцию</h3><p>На установленный котёл и вентиляцию два года. На подводку газа гарантия тоже есть, срок обсуждаем в договоре.</p></div></div>
+      <div class="fact rv"><b>1<i>раз</i></b><div><h3>Котельную сдаём с первого раза</h3><p>Приток, датчик загазованности, дымоход по нормам. Мы знаем, на что смотрит газовая служба, и делаем это сразу, а не после замечаний.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="photos" id="photos">
+  <div class="wrap">
+    <div class="kicker rv">Наши работы</div>
+    <h2 class="rv">Котельные и дымоходы, которые уже приняли</h2>
+    <div class="mosaic rv">
+      <figure class="tall"><img src="img/04.jpg" alt="Дымоход и газовый шкаф на фасаде деревянного дома" loading="lazy"><figcaption>Дымоход и ввод газа</figcaption></figure>
+      <figure><img src="img/08.jpg" alt="Котельная с коллектором" loading="lazy"><figcaption>Котельная с коллектором</figcaption></figure>
+      <figure><img src="img/01.jpg" alt="Дымоход на белом фасаде" loading="lazy"><figcaption>Дымоход, фасад</figcaption></figure>
+      <figure><img src="img/09.jpg" alt="Газовый котёл на плитке" loading="lazy"><figcaption>Котёл на негорючем основании</figcaption></figure>
+      <figure><img src="img/05.jpg" alt="Котёл на веранде с вентиляцией" loading="lazy"><figcaption>Котёл и приток</figcaption></figure>
+      <figure><img src="img/03.jpg" alt="Коричневый дымоход на фасаде" loading="lazy"><figcaption>Дымоход в цвет дома</figcaption></figure>
+      <figure><img src="img/02.jpg" alt="Дымоход на фасаде с сайдингом" loading="lazy"><figcaption>Дымоход, сайдинг</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="checks" id="checks">
+  <div class="wrap">
+    <div class="kicker rv">Газовая служба не примет, если</div>
+    <h2 class="rv">Три вещи, на которых все хотят сэкономить</h2>
+    <div class="cl">
+      <div class="c rv"><div class="num">01</div><h3>Нет нормального притока воздуха</h3><p>Окно, которое «можно открыть», это не приток. Мы это видим сразу, газовики тоже.</p></div>
+      <div class="c rv"><div class="num">02</div><h3>Нет датчика загазованности</h3><p>Маленькая коробочка на стене. Без неё котельную не примут, а с ней спится спокойнее.</p></div>
+      <div class="c rv"><div class="num">03</div><h3>Дымоход сделан «как получилось»</h3><p>У дымохода есть высота, уклон и материал, и всё это проверяют. Проще сделать сразу по нормам, чем потом разбирать.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contacts" id="contacts">
+  <div class="wrap">
+    <div class="kicker rv">Напишите</div>
+    <h2 class="rv">Разберём ваш участок и скажем, с чего начать</h2>
+    <p class="lead rv">Если думаете о доме с газом к следующей зиме, начинать лучше сейчас. Зимой можно расчистить участок и подготовить всё к фундаменту, а весной сразу строить.</p>
+    <div class="rows rv">
+      <div class="r"><span>Telegram</span><a href="https://t.me/daalllllxx" target="_blank" rel="noopener">@daalllllxx</a></div>
+      <div class="r"><span>Телефон</span><a href="tel:+79770024589">+7 977 002-45-89</a></div>
+      <div class="r"><span>География</span><span>Петербург и Ленобласть</span></div>
+      <div class="r"><span>Threads</span><a href="https://www.threads.com/@svoy.dom.spb" target="_blank" rel="noopener">@svoy.dom.spb</a></div>
+    </div>
+    <div class="foot"><span>От леса до котла</span><span>Петербург и Ленобласть · 2026</span></div>
+  </div>
+</section>
+
+<script>
+  // reveal
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  // calculator
+  const R = { clear: 6500, level: 5500, slab: 6000, fence: 2400, gasBase: 214000, gasM: 2700, boiler: 79500 };
+  const fmt = n => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  const q = k => document.querySelector(`[data-k="${k}"]`);
+  const val = k => Math.max(0, parseFloat(q(k).value) || 0);
+  const on = k => q(k).classList.contains('on');
+  function calc() {
+    const lines = [];
+    const add = (name, sum) => { if (sum > 0) lines.push([name, sum]); };
+    add('Расчистка, ' + val('clear') + ' сот.', val('clear') * R.clear);
+    add('Выравнивание, ' + val('level') + ' сот.', val('level') * R.level);
+    add('Фундамент плита, ' + val('slab') + ' м²', val('slab') * R.slab);
+    const mat = q('mat'); add((mat.selectedIndex ? 'Газобетон, ' : 'Каркас, ') + val('house') + ' м²', val('house') * parseFloat(mat.value));
+    add('Забор, ' + val('fence') + ' м', val('fence') * R.fence);
+    if (on('gas')) add('Подводка газа, ' + val('pipe') + ' м', R.gasBase + val('pipe') * R.gasM);
+    if (on('boiler')) add('Котельная под ключ', R.boiler);
+    const total = lines.reduce((s, l) => s + l[1], 0);
+    document.getElementById('sum').textContent = fmt(total);
+    document.getElementById('lines').innerHTML = lines.map(l => `<li><span>${l[0]}</span><b>${fmt(l[1])} ₽</b></li>`).join('');
+    const text = 'Здравствуйте. Прикинул(а) на сайте участок, вышло от ' + fmt(total) + ' ₽. ' + lines.map(l => l[0]).join(', ') + '. Хочу разобрать подробнее.';
+    document.getElementById('send').href = 'https://t.me/daalllllxx?text=' + encodeURIComponent(text);
+  }
+  document.querySelectorAll('#fields input, #fields select').forEach(el => el.addEventListener('input', calc));
+  document.querySelectorAll('.sw').forEach(sw => {
+    const toggle = () => { sw.classList.toggle('on'); sw.setAttribute('aria-checked', sw.classList.contains('on')); calc(); };
+    sw.addEventListener('click', toggle);
+    sw.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(); } });
+  });
+  calc();
+</script>
+</body>
+</html>
